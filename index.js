@@ -9,28 +9,31 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+let users = {};
+
+
 io.on('connection', function(socket){
 
-    console.log('a user connected', socket.handshake.address);
+    console.log(io.sockets);
 
-    //index2.html logic
-    socket.on('enter press', ()=>{
-        io.emit('enter press', RandomMultiple(30));
+    socket.on('login name', function(name){
+        users[socket.id] = name;
+        socket.emit("chat message", "You have connected to the server.");
+        io.emit('chat message', name + " just connected");
+        console.log(name+ " user connected", socket.handshake.address);
+        console.log(users);
+        
     });
 
-    
-    //index.html logic
     socket.on('disconnect', function(){
-      console.log('user disconnected');
+        var msg = users[socket.id] + " disconnected";
+        console.log(msg);
+        io.emit('chat message', msg.toUpperCase());
+        delete users[socket.id];
     });
     socket.on('chat message', function(msg){
-        console.log('message: ' + msg);
-    });
-    // socket.on('chat message', function(msg){
-    //     io.emit('chat message', msg);
-    // });
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
+        console.log(socket.id);
+        io.emit('chat message', users[socket.id] + ": " + msg);
     });
 });
 
@@ -38,13 +41,3 @@ io.on('connection', function(socket){
 http.listen(3000, function() {
   console.log('listening on *:3000');
 });
-
-let RandomMultiple = (mult)=>{
-    let r = Math.round(Math.random()*10);
-    // console.log(r);
-    let pos = {
-        top: mult * r,
-        left: mult * r
-    }
-    return pos;
-};
