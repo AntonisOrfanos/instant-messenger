@@ -42,10 +42,11 @@ app = new Vue({
         this.requestUsername();
         
         this.focusInput();
+        
+        socket.on('chat message', function(msg) {
+            app.addMessage(msg);
+            if (!document.hasFocus()) beep();
+        });
     }
 });
 
-socket.on('chat message', function(msg) {
-    app.addMessage(msg);
-    if (!document.hasFocus()) beep();
-});

@@ -14,26 +14,29 @@ let users = {};
 
 io.on('connection', function(socket){
 
-    console.log(io.sockets);
+    //console.log(io.sockets);
 
     socket.on('login name', function(name){
+        var time = new Date(new Date().getTime()).toLocaleTimeString();
         users[socket.id] = name;
-        socket.emit("chat message", "You have connected to the server.");
-        io.emit('chat message', name + " just connected");
-        console.log(name+ " user connected", socket.handshake.address);
-        console.log(users);
+        socket.emit("chat message", time + " | You have connected to the server.");
+        io.emit('chat message', time + " | " + name + " just connected");
+        console.log(time + " | " +name+ " connected", socket.handshake.address);
+        //console.log(users);
         
     });
 
     socket.on('disconnect', function(){
+        var time = new Date(new Date().getTime()).toLocaleTimeString();
         var msg = users[socket.id] + " disconnected";
         console.log(msg);
-        io.emit('chat message', msg.toUpperCase());
+        io.emit('chat message', time + " | " + msg.toUpperCase());
         delete users[socket.id];
     });
     socket.on('chat message', function(msg){
-        console.log(socket.id);
-        io.emit('chat message', users[socket.id] + ": " + msg);
+        var time = new Date(new Date().getTime()).toLocaleTimeString();
+        console.log(time + " | " + users[socket.id] + ": " + msg);
+        io.emit('chat message', time + " | " + users[socket.id] + ": " + msg);
     });
 });
 
