@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>IID Supreme Messaging App</title>
     <link rel="stylesheet" href="./css/styles.css">
   </head>
   <body>
@@ -9,7 +9,9 @@
     <div id="vue-app" ref="app">
 
       <h1 v-cloak>{{title}}</h1>
-      <ul id="messages"><li v-for="msg in msgs" v-cloak>{{msg}}</li></ul>
+      <ul id="messages">
+        <li v-for="msg in msgs" ><span v-bind:class="msg.color" v-cloak>{{msg.time}} | <b v-cloak>{{msg.sender}} : </b> <a v-bind:href="msg.href" target="_blank" v-cloak>{{msg.text}}</a></span></li>
+      </ul>
       
       <form v-on:submit.prevent="sendMessage">
           <input v-model="message" autocomplete="off" ref="msgInput">
@@ -22,5 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="./scripts/vue-app.js"></script>
     <script src="./scripts/helper.js"></script>
+
   </body>
 </html>

@@ -5,8 +5,14 @@ app = new Vue({
     data: {
         title: 'Instant messenger',
         msgs: [],
-        message: "",
-        documentHasFocus: true
+        msgObj: {
+            sender: "",
+            text: "",
+            time: "",
+            href: "",
+            color: ""
+        },
+        message: ""
     },
     methods: {
         sendMessage: function() {
@@ -18,6 +24,7 @@ app = new Vue({
         },
         addMessage: function(msg) {
             this.msgs.push(msg);
+
         },
         resetMessage: function() {
             this.message = "";
@@ -45,6 +52,7 @@ app = new Vue({
         
         socket.on('chat message', function(msg) {
             app.addMessage(msg);
+            app.scrollToBottom();
             if (!document.hasFocus()) beep();
         });
     }
