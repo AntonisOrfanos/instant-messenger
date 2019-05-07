@@ -15,27 +15,27 @@ app = new Vue({
         message: ""
     },
     methods: {
-        sendMessage: function() {
+        sendMessage: function () {
             if (this.message == "") return;
             socket.emit('chat message', this.message);
             this.resetMessage();
             this.focusInput();
             this.scrollToBottom();
         },
-        addMessage: function(msg) {
+        addMessage: function (msg) {
             this.msgs.push(msg);
 
         },
-        resetMessage: function() {
+        resetMessage: function () {
             this.message = "";
         },
-        focusInput: function() {
+        focusInput: function () {
             this.$refs.msgInput.focus();
         },
-        scrollToBottom: function() {
-            window.scrollTo(0,document.getElementById("vue-app").scrollHeight);
+        scrollToBottom: function () {
+            window.scrollTo(0, document.getElementById("vue-app").scrollHeight);
         },
-        requestUsername: function() {
+        requestUsername: function () {
             var person = prompt("Please enter your name", "");
 
             if (person == null || person == "") {
@@ -45,16 +45,15 @@ app = new Vue({
             }
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.requestUsername();
-        
+
         this.focusInput();
-        
-        socket.on('chat message', function(msg) {
+
+        socket.on('chat message', function (msg) {
             app.addMessage(msg);
             app.scrollToBottom();
             if (!document.hasFocus()) beep();
         });
     }
 });
-
