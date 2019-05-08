@@ -54,6 +54,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
+        if (!users[socket.id]) return;
         var time = new Date(new Date().getTime()).toLocaleTimeString();
         var msg = users[socket.id].name + " disconnected";
 
