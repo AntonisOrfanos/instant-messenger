@@ -7,7 +7,7 @@ var userColors = ["color1", "color2", "color3", "color4", "color5"];
 
 app.use(express.static('public'))
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index2.html');
 });
 
 var users = {};

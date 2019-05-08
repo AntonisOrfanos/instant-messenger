@@ -33,7 +33,8 @@ app = new Vue({
             this.$refs.msgInput.focus();
         },
         scrollToBottom: function () {
-            window.scrollTo(0, document.getElementById("vue-app").scrollHeight);
+            let messages = document.getElementById("messages");
+            messages.scrollTo(0, messages.scrollHeight);
         },
         requestUsername: function () {
             var person = prompt("Please enter your name", "");
@@ -52,8 +53,10 @@ app = new Vue({
 
         socket.on('chat message', function (msg) {
             app.addMessage(msg);
-            app.scrollToBottom();
             if (!document.hasFocus()) beep();
         });
+    },
+    updated: function () {
+        app.scrollToBottom();
     }
 });

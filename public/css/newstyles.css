@@ -1,0 +1,133 @@
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#vue-app,
+html,
+body {
+  height: 100%;
+}
+
+header {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: 100px;
+  text-align: center;
+  box-shadow: 0px 0px 6px 0px;
+}
+
+main {
+  display: block;
+  height: calc(100% - 150px);
+}
+
+footer {
+  height: 50px;
+  background: #ccc;
+  display: grid;
+  justify-content: space-evenly;
+  align-content: center;
+  grid-template-columns: auto auto;
+}
+
+
+/* COLORS START */
+
+.color1 {
+  color: rgb(153, 51, 51);
+  background-color: rgba(153, 51, 51, 0)
+}
+
+.color2 {
+  color: rgb(102, 0, 102);
+  background-color: rgba(102, 0, 102, 0.18)
+}
+
+.color3 {
+  color: rgb(0, 51, 0);
+  background-color: rgba(0, 51, 0, 0.18)
+}
+
+.color4 {
+  color: rgb(0, 102, 153);
+  background-color: rgba(0, 102, 153, 0.18)
+}
+
+.color5 {
+  color: rgb(204, 51, 0);
+  background-color: rgba(204, 51, 0, 0.18)
+}
+
+.serverColor {
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.18)
+}
+
+/* COLORS END */
+
+/* POST START */
+
+.post {
+  display: block;
+  padding: 0 10px;
+}
+
+.post .post-bubble {
+  border-radius: 15px;
+  max-width: 70%;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 13px;
+}
+
+.post:last-child {
+  margin-bottom: 10px;
+}
+
+.post .post-metadata .sender {
+  text-transform: capitalize;
+  background: #fff;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.post .post-text {
+  margin-top: 10px;
+  font-size: 16px;
+  display: block;
+  word-wrap: break-word;
+}
+
+/* POST END */
+
+#messages {
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+  /* display: grid; */
+  grid-template-columns: auto;
+  scroll-behavior: smooth;
+}
+
+/* message-creator START */
+#message-creator>*,
+#message-creator {
+  height: 30px;
+}
+
+#message-creator input[type="text"] {
+  width: calc(100% - 60px);
+  border: 0;
+  border-bottom: 1px solid #333;
+  padding: 3px;
+}
+
+#message-creator input[type="button"] {
+  width: 50px;
+}
+
+/* message-creator END */
