@@ -70,6 +70,7 @@ io.on('connection', function (socket) {
         io.emit('chat message', msgObj);
         delete users[socket.id];
     });
+
     socket.on('chat message', function (msg) {
         var time = new Date(new Date().getTime()).toLocaleTimeString();
         var href = null;

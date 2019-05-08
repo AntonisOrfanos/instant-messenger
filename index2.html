@@ -28,7 +28,7 @@
             </section>
 
             <form id="message-creator" v-on:submit.prevent="sendMessage">
-                <input type="text" v-model="message" autocomplete="off" ref="msgInput">
+                <input type="text" v-model="message" autocomplete="off" ref="msgInput" tabindex="1">
                 <input type="button" value="Send" />
             </form>
         </main>
