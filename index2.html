@@ -19,17 +19,26 @@
             <section id="messages">
                 <div v-for="msg in msgs" class="post">
                     <div class="post-bubble" v-bind:class="msg.color">
-                        <span class="post-metadata">{{msg.time}} | <b v-cloak class="sender">{{msg.sender}}</b></span>
+                        <span class="post-metadata">{{msg.time}} <b v-cloak class="sender">{{msg.sender}}</b></span>
                         <span class="post-text">
                             <a v-bind:href="msg.href" target="_blank" v-cloak>{{msg.text}}</a>
                         </span>
                     </div>
                 </div>
             </section>
+            <section class="active-users">
+                <h3>Users</h3>
+                <ul>
+                    <li v-for="user in active_users">
+                        <span class="user-name" v-bind:class="user.color">{{user.name}}</span>
+                        <span class="user-ip" v-bind:class="user.color">{{user.ip}}</span>
+                    </li>
+                </ul>
 
+            </section>
             <form id="message-creator" v-on:submit.prevent="sendMessage">
                 <input type="text" v-model="message" autocomplete="off" ref="msgInput" tabindex="1">
-                <input type="button" value="Send" />
+                <input type="submit" value="SEND" />
             </form>
         </main>
         <footer>

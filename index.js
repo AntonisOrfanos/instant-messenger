@@ -49,6 +49,7 @@ io.on('connection', function (socket) {
         };
 
         socket.emit('chat message', msgObj);
+        io.emit('users changed', users);
         console.log(socket.handshake.address);
 
     });
@@ -69,6 +70,7 @@ io.on('connection', function (socket) {
         console.log(msg);
         io.emit('chat message', msgObj);
         delete users[socket.id];
+        io.emit('users changed', users);
     });
 
     socket.on('chat message', function (msg) {
@@ -96,7 +98,7 @@ http.listen(3000, function () {
 });
 
 isLink = function (txt) {
-    var re = /http.*|www[.][a-zA-Z0-9]*[.][a-zA-Z]{2,5}/;
+    var re = /^(http.*|www[.][a-zA-Z0-9]*[.][a-zA-Z]{2,5})/i;
     return re.test(txt);
 };
 

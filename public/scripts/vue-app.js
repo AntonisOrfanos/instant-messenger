@@ -12,7 +12,8 @@ app = new Vue({
             href: "",
             color: ""
         },
-        message: ""
+        message: "",
+        active_users: {}
     },
     methods: {
         sendMessage: function () {
@@ -36,6 +37,9 @@ app = new Vue({
             let messages = document.getElementById("messages");
             messages.scrollTo(0, messages.scrollHeight);
         },
+        updateUsers: function (users) {
+            this.active_users = users;
+        },
         requestUsername: function () {
             var person = prompt("Please enter your name", "");
 
@@ -54,6 +58,10 @@ app = new Vue({
         socket.on('chat message', function (msg) {
             app.addMessage(msg);
             if (!document.hasFocus()) beep();
+        });
+
+        socket.on('users changed', function (users) {
+            app.updateUsers(users);
         });
     },
     updated: function () {
