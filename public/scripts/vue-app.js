@@ -1,4 +1,8 @@
 var socket = io();
+var favicon = new Favico({
+    animation: 'pop'
+});
+var unreadCounter = 0;
 
 app = new Vue({
     el: '#vue-app',
@@ -57,8 +61,17 @@ app = new Vue({
 
         socket.on('chat message', function (msg) {
             app.addMessage(msg);
-            if (!document.hasFocus()) beep();
+            if (!document.hasFocus()) {
+                beep();
+                favicon.badge(++unreadCounter)
+            }
         });
+
+        document.onfocus = () => {
+            unreadCounter = 0;
+            favicon.badge(unreadCounter);
+            this.focusInput();
+        }
 
         socket.on('users changed', function (users) {
             app.updateUsers(users);

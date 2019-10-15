@@ -1,47 +1,63 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>IID Supreme Messaging App</title>
-  <link rel="stylesheet" href="./css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Instant Messenger</title>
+    <link rel="stylesheet" href="./css/newstyles.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 
 <body>
-  <main id="vue-app" ref="app">
-    <h1 v-cloak>{{title}}</h1>
-    <section id="messages">
-      <ul>
-        <li v-for="msg in msgs"><span v-bind:class="msg.color" v-cloak>{{msg.time}} | <b v-cloak>{{msg.sender}} : </b>
-            <a v-bind:href="msg.href" target="_blank" v-cloak>{{msg.text}}</a></span></li>
-      </ul>
-    </section>
-    <form v-on:submit.prevent="sendMessage">
-      <input v-model="message" autocomplete="off" ref="msgInput">
-      <button>Send</button>
-    </form>
-  </main>
+    <div id="vue-app" ref="app">
+        <header>
+            <h1>{{title}}</h1>
+        </header>
+        <main>
+            <section id="messages">
+                <div v-for="msg in msgs" class="post">
+                    <div class="post-bubble" v-bind:class="msg.color">
+                        <span class="post-metadata">{{msg.time}} <b v-cloak class="sender">{{msg.sender}}</b></span>
+                        <span class="post-text">
+                            <a v-bind:href="msg.href" target="_blank" v-cloak>{{msg.text}}</a>
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <section class="active-users">
+                <h3>Users</h3>
+                <ul>
+                    <li v-for="user in active_users">
+                        <span class="user-name" v-bind:class="user.color">{{user.name}}</span>
+                        <span class="user-ip" v-bind:class="user.color">{{user.ip}}</span>
+                    </li>
+                </ul>
 
+            </section>
+            <form id="message-creator" v-on:submit.prevent="sendMessage">
+                <input type="text" v-model="message" autocomplete="off" ref="msgInput" tabindex="1"
+                    placeholder="-- . ... ... .- --. .">
+                <input type="submit" value="SEND" />
+            </form>
+        </main>
+        <footer>
+            <span>Created by Antonis Orfanos</span>
+            <span>
+                Powered by
+                <a target="_blank" href="https://vuejs.org/">vue.js</a> &amp;
+                <a target="_blank" href="https://socket.io/">socket.io</a>
+            </span>
+        </footer>
+    </div>
 
-  <!-- <div id="vue-app" ref="app">
-
-    <h1 v-cloak>{{title}}</h1>
-    <ul id="messages">
-      <li v-for="msg in msgs"><span v-bind:class="msg.color" v-cloak>{{msg.time}} | <b v-cloak>{{msg.sender}} : </b> <a
-            v-bind:href="msg.href" target="_blank" v-cloak>{{msg.text}}</a></span></li>
-    </ul>
-
-    <form v-on:submit.prevent="sendMessage">
-      <input v-model="message" autocomplete="off" ref="msgInput">
-      <button>Send</button>
-    </form>
-
-  </div> -->
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <script src="./scripts/vue-app.js"></script>
-  <script src="./scripts/helper.js"></script>
-
+    <script src="./scripts/favico-0.3.10.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="./scripts/vue-app.js"></script>
+    <script src="./scripts/helper.js"></script>
 </body>
 
 </html>

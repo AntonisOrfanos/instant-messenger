@@ -42,7 +42,7 @@ header {
 }
 
 header h1 {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.88);
   padding: 10px 20px;
   border-radius: 15px;
 }
@@ -186,6 +186,7 @@ a[href^="http"]:hover {
   border-color: #757C80;
   border-radius: 3px;
   color: #D3DFE5;
+  cursor: pointer;
 }
 
 #message-creator input[type="submit"]:hover {

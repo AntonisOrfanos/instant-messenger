@@ -3,11 +3,20 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+
+// fetch simsons quotes
+const fetch = require("node-fetch");
+
+const url = "https://thesimpsonsquoteapi.glitch.me/quotes";
+
+
+
+//
 var userColors = ["color1", "color2", "color3", "color4", "color5"];
 
 app.use(express.static('public'))
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index2.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 var users = {};
@@ -37,20 +46,41 @@ io.on('connection', function (socket) {
             name: name.toUpperCase(),
             // name: usernamesByIP[socket.handshake.address].toUpperCase(),
             color: userColors[colorIndex],
+            // petroMeter: 5,
             ip: socket.handshake.address
         };
 
         msgObj = {
             sender: "Server",
-            text: "You have connected to the server.",
+            text: `You have connected to the server.`,
             time: time,
             color: "serverColor",
             href: null
         };
-
-        socket.emit('chat message', msgObj);
         io.emit('users changed', users);
         console.log(socket.handshake.address);
+
+        fetch(url)
+            .then((response) => {
+                return response.json();
+                // return response.json()[0];
+            })
+            .then((quote) => {
+                socket.emit('chat message', msgObj);
+
+                console.log(quote);
+                msgObj = {
+                    sender: "Server",
+                    text: `${quote[0].character}: ${quote[0].quote}`,
+                    time: time,
+                    color: "serverColor",
+                    href: quote[0].image
+                };
+
+                socket.emit('chat message', msgObj);
+            });
+
+
 
     });
 
@@ -94,7 +124,7 @@ io.on('connection', function (socket) {
 
 
 http.listen(3000, function () {
-    console.log('listening on *:3000');
+    console.log('listening on http://localhost:3000');
 });
 
 isLink = function (txt) {
