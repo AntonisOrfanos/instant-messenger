@@ -8,7 +8,10 @@ Some interesting features:
 - Unread messages counter in browser tab.
 - Messages with working links available.
 
-To start the app run with cmd: **node index.js**
-
+To start the app run with cmd: 
+```
+npm install
+node index.js
+```
 Built with Node Express - Socket.io and Vue.js.
 
